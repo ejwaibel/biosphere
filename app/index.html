@@ -1,56 +1,161 @@
 <!doctype html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>community</title>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>community</title>
 
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<!-- Place favicon.ico in the root directory -->
 
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="../bower_components/skeleton/css/skeleton.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
+	<!-- build:css styles/vendor.css -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-hive/jquery-ui.min.css" />
+	<!-- endbower -->
+	<!-- endbuild -->
 
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+	<!-- build:css styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild -->
   </head>
   <body>
+	<div id="container">
 
-    <div class="container">
-      <div>
-        <h1>'Allo, 'Allo!</h1>
-        <h2>Always a pleasure scaffolding your apps.</h2>
-        <button>Splendid!</button>
-      </div>
+		<div id="sidebar">
+			<!-- Add New Person -->
+			<i id="add-new" data-toggle="modal" data-target="#add-person-dialog" class="button glyphicon glyphicon-plus" title="Add Person"></i>
 
-      <div>
-        <div>
-          <h4>HTML5 Boilerplate</h4>
-          <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
+			<i id="terminate-all" class="button glyphicon glyphicon-warning-sign" title="Start Apocolypse"></i>
 
-          <h4>Skeleton</h4>
-          <p>A modern alternative to Bootstrap, Skeleton uses less markup and has a cooler name.</p>
-        </div>
-      </div>
+			<!-- Silence Population -->
+			<i id="silence-all" class="button glyphicon glyphicon-volume-off" title="Silence Population"></i>
 
-      <div>
-        <p>from Daniel Stern (based on work from the Yeoman team)</p>
-      </div>
-    </div>
+			<!-- Cemetery -->
+			<i id="cemetery-view" class="button glyphicon glyphicon-random" title="Visit Cemetery"></i>
+		</div>
 
+		<!-- Container for all Persons -->
+		<div id="biosphere" class="living">
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
+			<!-- Person Stats -->
+			<div id="stats">
+				<h4 class="name"></h4>
+				<label>Age:</label>
+				<div class="progress age">
+					<span class="value"></span>
+					<span class="progress-bar"></span>
+				</div>
+				<label>Dirt Factor:</label>
+				<div class="progress dirtFactor">
+					<span class="value"></span>
+					<span class="progress-bar"></span>
+				</div>
+				<label>Sleep Factor:</label>
+				<div class="progress sleepFactor">
+					<span class="value"></span>
+					<span class="progress-bar"></span>
+				</div>
+				<label>Weight:</label>
+				<div class="progress weight">
+					<span class="value"></span>
+					<span class="progress-bar"></span>
+				</div>
+				<label>Clothing:</label>
+				<div class="clothing">
+					<p></p>
+				</div>
+			</div>
 
-        <!-- build:js app.js -->
-        <script src="app.js"></script>
-        <!-- endbuild -->
+			<!-- Population Header -->
+			<div id="population-header" class="population-container">
+					<h2>Total Population:&nbsp; <span id="population-total">0</span></h2>
+					<h4 class="male">Male: &nbsp; <span id="population-male">0</span></h4>
+					<h4 class="female">Female: &nbsp; <span id="population-female">0</span></h4>
+			</div>
+
+			<div class="apocolypse"></div>
+			<img class="background" src="images/biosphere1.png">
+
+			<!-- Quick Actions Bar -->
+			<div id="quick-actions">
+				<i class="action button glyphicon glyphicon-cutlery" data-action="eat" title="Eat"></i>
+				<i class="action button glyphicon glyphicon-road" data-action="exercise" title="Exercise"></i>
+				<i class="action button glyphicon glyphicon-fast-forward" data-action="age" title="Increase Age"></i>
+				<i class="action button glyphicon glyphicon-tint" data-action="shower" title="Shower"></i>
+				<i class="action button glyphicon glyphicon-tree-conifer" data-action="dirty" title="Add Dirt"></i>
+				<i class="action button glyphicon glyphicon-user" data-action="change" title="Change Clothes"></i>
+				<i class="action button glyphicon glyphicon-eye-close" data-action="sleep" title="Sleep"></i>
+				<i class="action button glyphicon glyphicon-usd" data-action="work" title="Work"></i>
+				<i class="action button glyphicon glyphicon-volume-off" data-action="silence" title="Silence"></i>
+				<i class="action button glyphicon glyphicon-remove" data-action="kill" title="Kill"></i>
+			</div>
+
+			 <!-- Cycle Backgrounds -->
+			<div class="cycle-background forward" title="Cycle Backgrounds">
+				<i id="next-background" class="button glyphicon glyphicon-forward" title="Next"></i>
+			</div>
+			<div class="cycle-background backward" title="Cycle Backgrounds">
+				<i id="prev-background" class="button glyphicon glyphicon-backward" title="Previous"></i>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Silence All Text -->
+
+	<div class="silence-text">
+		<h1>SILENCE!</h1>
+	</div>
+
+	<!-- Add New Person Dialog Template -->
+	<div id="add-person-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-person-modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="add-person-title">Add Person</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+					  <input type="text" class="form-control" placeholder="Name" name="pname">
+					</div>
+
+					<div class="select-gender input-group">
+						<div class="left-column">
+							<label>Gender:</label>
+						</div>
+						<div class="right-column">
+							<div class="radio-group">
+								<input id="maleRadio" type="radio" name="sex" value="male" checked="">
+								<label for="maleRadio">Male</label>
+							</div>
+							<div class="radio-group">
+								<input id="femaleRadio" type="radio" name="sex" value="female">
+								<label for="femaleRadio">Female</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="btn-ok" type="button" class="btn btn-primary">ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+
+	</footer>
+	<!-- build:js scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js app.js -->
+	<script src="app.js"></script>
+	<!-- endbuild -->
 </body>
 </html>
