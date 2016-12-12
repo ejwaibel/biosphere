@@ -113,16 +113,21 @@ gulp.task('wiredep', function () {
 
 	gulp.src('app/*.html')
 	.pipe(wiredep({
+		'overrides': {
+			'jquery-ui': {
+			    'main': ['themes/dark-hive/jquery-ui.min.css']
+			}
+		},
 //      ignorePath: /^(\.\.\/)*\.\./
 	}))
 	.pipe(gulp.dest('app'));
 });
 
-gulp.task('preflight',['eslint']);
+gulp.task('preflight', ['eslint']);
 
 gulp.task('produce', ['preflight', 'wiredep', 'es6', 'scss', 'images', 'fonts']);
 
-gulp.task('package',['produce', 'html', 'extras']);
+gulp.task('package', ['produce', 'html', 'extras']);
 
 gulp.task('serve', ['produce'], function () {
   browserSync({
