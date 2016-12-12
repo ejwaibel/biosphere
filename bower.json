@@ -2,7 +2,8 @@
   "name": "community",
   "private": true,
   "dependencies": {
-    "skeleton": "~2.0.4"
+    "jquery-ui": "^1.12.1",
+    "bootstrap-sass": "^3.3.7"
   },
   "devDependencies": {
     "chai": "^3.5.0",
