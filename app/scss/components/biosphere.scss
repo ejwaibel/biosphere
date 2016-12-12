@@ -1,0 +1,75 @@
+/*---------------------------------
+   BIOSPHERE STYLES
+---------------------------------*/
+
+#biosphere {
+	position: absolute;
+	left: 50px;
+	top: 0;
+	bottom: 0;
+	right: 0;
+
+	border-top-right-radius: 10px;
+
+	text-align: center;
+	overflow: hidden;
+	background-color: #fff;
+}
+
+#biosphere .background {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#biosphere .apocolypse {
+	background-color: red;
+	display: none;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 15;
+}
+
+/*---------------------
+ CEMETERY VIEW
+ ---------------------*/
+#biosphere.cemetery .person,
+#biosphere.cemetery .cycle-background,
+#biosphere.cemetery .population-container {
+	display: none;
+}
+#biosphere.cemetery .person.tombstone {
+	display: block;
+}
+
+#biosphere.cemetery .background {
+	transition        : .3s linear;
+	/**
+	 * Not that ugly as the JavaScript approach.
+	 * Easy to maintain, the most portable solution.
+	 */
+	-webkit-transform : rotate(360deg);
+}
+
+/*---------------------
+	CYCLE BACKGROUNDS
+----------------------*/
+
+.cycle-background {
+	position: absolute;
+	color: #000;
+	bottom: 0;
+	top: 100;
+}
+.cycle-background.forward {
+	left: 600;
+	right: 0;
+}
+.cycle-background.backward {
+	right: 600;
+	left: 0;
+}
+.cycle-background a { color: #000; }

@@ -1,0 +1,106 @@
+/**
+ * Person styles
+ */
+ .person {
+	position: absolute;
+	height: 160px;
+	width: 60px;
+}
+.person.tombstone {
+	background: url("../images/tombstone.png") no-repeat;
+	display: none;
+	width: 100px;
+}
+.person.male {
+	background: url("../images/male.png") no-repeat;
+}
+.person.female {
+	background: url("../images/female.png") no-repeat;
+}
+.person-name {
+	position: absolute;
+	bottom: 0;
+	left: 15%;
+	bottom: 100%;
+
+	font-family: "Trebuchet MS", "Arial", "sans-serif";
+	font-size: 14px;
+	font-style: bold;
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	text-transform: uppercase;
+	z-index: 10;
+	border-radius: 4px;
+}
+.death-age {
+	display: none;
+	position: absolute;
+	top: 125px;
+	right: 25px;
+	color: #8AF81A;
+	text-shadow: #000 2px -1px 2px;
+}
+.person .heart {
+	color: red;
+	position: relative;
+	font-size: 13px;
+	left: 5px;
+}
+.person.male .heart {
+	top: 70px;
+}
+.person.female .heart {
+	top: 40px;
+}
+.person.selected {
+	background-color: #b20326;
+	border-radius: 30px;
+ }
+.person .speech-bubble { display: none; }
+
+/**********
+ * SHADOW *
+ **********/
+.person:before,
+.person:after {
+	content:"";
+	position:absolute;
+	z-index:-2;
+}
+.person:not(.tombstone):before {
+	bottom:-150px;
+	left:5px;
+	width:60px;
+	height:160px;
+	max-width:200px;
+
+
+	transform:skew(131deg);
+	transform-origin:0 0;
+
+	z-index: 5;
+}
+.person:not(.tombstone):after { display:none; }
+
+.person.male:before {
+	background: url("../images/male-shadow.png") no-repeat;
+}
+.person.female:before {
+	background: url("../images/female-shadow.png") no-repeat;
+}
+
+/****************************
+ * TOMBSTONE SPECIFIC STYLES
+ ****************************/
+.tombstone .person-name {
+	left: 33%;
+	top: 65%;
+	color: "white";
+	width: 25px;
+	font-size: 70%;
+	font-family: "Papyrus";
+}
+.tombstone .death-age {
+	display: block;
+}
+.tombstone .heart { display: none; }

@@ -1,0 +1,38 @@
+/*-------------------
+	STATS STYLES
+ ------------------*/
+#stats {
+	background: rgba(0, 0, 0, 0.7);
+	border-bottom-right-radius: 10px;
+	color: map-get($colors, 'palma');
+	font: 14px bold 'Open Sans Condensed', 'sans-serif';
+	display: none;
+	position: relative;
+
+	width: 355px;
+	height: 240px;
+
+	padding: 5px;
+	z-index: 20;
+
+}
+#stats .name {
+	color: map-get($colors, 'yellow');
+}
+#stats .ui-progressbar .ui-progressbar-value { margin: 0; }
+#stats .ui-widget-content.progress-bar { border: none; }
+#stats .progress .value { position: absolute; }
+#stats .progress-bar,
+#stats .ui-progressbar .ui-progressbar-value {
+	border-radius: 0;
+}
+#stats .clothing {	text-transform: uppercase; }
+#stats label {
+	clear: left;
+	float: left;
+
+	width: 85px;
+
+	color: #fff;
+	text-align: left;
+}
