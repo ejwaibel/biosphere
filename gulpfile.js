@@ -3,12 +3,13 @@
 // generated on 2016-12-04 using generator-es6-webapp 0.1.0
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
-var browserify = require('browserify');
 var babelify = require('babelify');
-var source = require('vinyl-source-stream');
+var browserify = require('browserify');
+var browserSync = require('browser-sync');
+var glob = require('glob');
+var reload = browserSync.reload;
 var sasslint = require('gulp-sass-lint');
+var source = require('vinyl-source-stream');
 
 var options = {
 	autoprefixer: {
@@ -25,7 +26,7 @@ var options = {
 		errLogToConsole: true
 	},
 	sasslint: {
-		configFile: 'sass-lint.yml'
+		configFile: '.sass-lint.yml'
 	}
 };
 
@@ -38,13 +39,18 @@ gulp.task('eslint', function() {
 				//.pipe($.if(!browserSync.active, $.eslint.failOnError()))
 });
 
+gulp.task('sass-lint', function() {
+	return gulp.src('app/scss/*.scss')
+		.pipe($.plumber())
+		.pipe(sasslint(options.sasslint))
+		.pipe(sasslint.format())
+		.pipe(sasslint.failOnError())
+});
 
-gulp.task('scss', function() {
+gulp.task('scss', ['sass-lint'], function() {
 	return gulp.src('app/scss/main.scss')
 		.pipe($.plumber())
 		.pipe($.sourcemaps.init())
-		.pipe(sasslint(options.sasslint))
-			.pipe(sasslint.format())
 		.pipe($.sass(options.sass))
 		.pipe($.autoprefixer(options.autoprefixer))
 		.pipe($.sourcemaps.write())
@@ -53,16 +59,20 @@ gulp.task('scss', function() {
 });
 
 gulp.task('es6', ['eslint'], function() {
+	var files = glob.sync('./app/scripts/*.js');
+
 	return browserify({
-		entries:'./app/scripts/main.js',
-		debug:true
+		entries: files,
+		debug: true
 	})
-	.transform(babelify)
+	.transform(babelify, {
+	    // Use all of the ES2015 spec
+	    presets: ["es2015"]
+	})
 	.bundle()
 	.pipe(source('app.js'))
 	.pipe(gulp.dest('./.tmp'));
 });
-
 
 gulp.task('html', ['es6', 'scss'], function () {
 	return gulp.src('app/*.html')
@@ -115,7 +125,7 @@ gulp.task('wiredep', function () {
 	.pipe(wiredep({
 		'overrides': {
 			'jquery-ui': {
-			    'main': ['themes/dark-hive/jquery-ui.min.css']
+			    'main': ['themes/dark-hive/jquery-ui.css', 'jquery-ui.js']
 			}
 		},
 //      ignorePath: /^(\.\.\/)*\.\./
