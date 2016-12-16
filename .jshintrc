@@ -2,7 +2,7 @@
 	"browser": true,
 	"curly": true,
 	"eqeqeq": true,
-	"es5": false,
+	"esversion": 6,
 	"forin": true,
 	"freeze": true,
 	"funcscope": false,
