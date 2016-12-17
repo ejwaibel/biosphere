@@ -1,36 +1,33 @@
 $(() => {
-	var $containerBackground = $('#biosphere .background'),
+	var $biosphereBackground = $('#biosphere .background'),
 		backgrounds = [
-			'images/biosphere1.png',
-			'images/biosphere2.png',
-			'images/biosphere3.jpg',
-			'images/biosphere4.jpg',
-			'images/biosphere5.jpg'
+			'winter',
+			'spring',
+			'summer',
+			'fall'
 		],
 		imgNumber = 0;
 
 	/******************************************
 	 * CYCLE THROUGH BACKGROUNDS
 	 *******************************************/
-	let nextImage = function(event) {
-			imgNumber++;
+	let toggleBackground = function(e) {
+		var type = e.type;
 
-			if (imgNumber === backgrounds.length) {
-				imgNumber = 0;
-			}
+		e.preventDefault();
 
-			$containerBackground.attr('src', backgrounds[imgNumber]);
-		},
-		previousImage = function() {
-			imgNumber--;
+		imgNumber += type === 'next' ? 1 : -1;
 
-			if (imgNumber < 0) {
-				imgNumber = backgrounds.length - 1;
-			}
+		if (imgNumber === backgrounds.length) {
+			imgNumber = 0;
+		} else if (imgNumber < 0) {
+			imgNumber = backgrounds.length - 1;
+		}
 
-			$containerBackground.attr('src', backgrounds[imgNumber]);
-		};
+		$biosphereBackground.removeClass(backgrounds.join(' '));
+		$biosphereBackground.addClass(backgrounds[imgNumber]);
+	};
 
-	$('#next-background').on('click', nextImage);
-	$('#prev-background').on('click', previousImage);
+	$('#next-background').on('click', { type: 'next' }, toggleBackground);
+	$('#prev-background').on('click', { type: 'prev' }, toggleBackground);
 });

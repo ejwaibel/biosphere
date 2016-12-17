@@ -3,73 +3,84 @@
 ---------------------------------*/
 
 #biosphere {
-	position: absolute;
-	left: 50px;
-	top: 0;
-	bottom: 0;
-	right: 0;
-
+	background-color: #ffffff;
 	border-top-right-radius: 10px;
-
-	text-align: center;
-	overflow: hidden;
-	background-color: #fff;
-}
-
-#biosphere .background {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-#biosphere .apocolypse {
-	background-color: red;
-	display: none;
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	z-index: 15;
-}
-
-/*---------------------
- CEMETERY VIEW
- ---------------------*/
-#biosphere.cemetery .person,
-#biosphere.cemetery .cycle-background,
-#biosphere.cemetery .population-container {
-	display: none;
-}
-#biosphere.cemetery .person.tombstone {
-	display: block;
-}
-
-#biosphere.cemetery .background {
-	transition        : .3s linear;
-	/**
-	 * Not that ugly as the JavaScript approach.
-	 * Easy to maintain, the most portable solution.
-	 */
-	-webkit-transform : rotate(360deg);
-}
-
-/*---------------------
-	CYCLE BACKGROUNDS
-----------------------*/
-
-.cycle-background {
-	position: absolute;
-	color: #000;
 	bottom: 0;
-	top: 100;
-}
-.cycle-background.forward {
-	left: 600;
+	left: 50px;
+	overflow: hidden;
+	position: absolute;
 	right: 0;
+	text-align: center;
+	top: 0;
+
+	.background {
+		background-color: map-get($colors, dark-grey);
+		background-position: center;
+		background-size: cover;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		&.fall {
+			background-image: url('/images/fall.png');
+		}
+
+		&.spring {
+			background-image: url('/images/spring.png');
+		}
+
+		&.summer {
+			background-image: url('/images/summer.png');
+		}
+
+		&.winter {
+			background-image: url('/images/winter.png');
+		}
+	}
+
+	&.cemetery {
+		.background {
+			background-image: url('/images/cemetery.jpg');
+			transform: rotate(360deg);
+			transition: .3s linear;
+		}
+
+		.person,
+		.cycle-background,
+		.population-container {
+			display: none;
+		}
+
+		.person.tombstone {
+			display: block;
+		}
+	}
+
+	.apocolypse {
+		background-color: map-get($colors, 'red');
+		display: none;
+		height: 100%;
+		position: absolute;
+		width: 100%;
+		z-index: 15;
+	}
+
+	.cycle-background {
+		bottom: 0;
+		color: #000000;
+		position: absolute;
+		top: 100;
+
+		&.backward {
+			left: 0;
+			right: 600;
+		}
+
+		&.forward {
+			left: 600;
+			right: 0;
+		}
+	}
 }
-.cycle-background.backward {
-	right: 600;
-	left: 0;
-}
-.cycle-background a { color: #000; }
