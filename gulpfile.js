@@ -92,6 +92,7 @@ gulp.task('images', function () {
 		// as hooks for embedding and styling
 		svgoPlugins: [{cleanupIDs: false}]
 	})))
+	.pipe(gulp.dest('.tmp/images'))
 	.pipe(gulp.dest('dist/images'));
 });
 
@@ -154,15 +155,13 @@ gulp.task('serve', ['produce'], function () {
   // watch for changes
   gulp.watch([
 	'app/*.html',
-	'app/scripts/**/*.js',
 	'app/images/**/*',
-	'.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('app/scss/**/*.scss', ['scss']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
+  gulp.watch('app/scss/**/*.scss', ['scss'], reload);
+  gulp.watch('app/fonts/**/*', ['fonts'], reload);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
-  gulp.watch('app/scripts/**/*.js', ['es6']);
+  gulp.watch('app/scripts/**/*.js', ['es6'], reload);
 });
 
 gulp.task('serve:dist', ['package'], function () {
