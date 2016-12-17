@@ -14,160 +14,110 @@
     	MAIN
  -----------------*/
 
-html, body {
+html,
+body {
 	height: 100%;
 	width: 100%;
 }
 
 body {
-	background-color: #00CCFF;
 	background-image: url('../images/background.jpg');
 }
 
-blockquote { border: 0; }
-
-#container {
-	position: absolute;
-	top: 5px;
-	left: 15px;
-	bottom: 40px;
-
-	width: 96%;
-	min-width: 360px;
-	/*height: 95%;*/
-	min-height: 480px;
-	border-top-right-radius: 10px;
-	/*border-bottom-left-radius: 10px;*/
+blockquote {
+	border: 0;
 }
 
-#dialog-template { display: none; }
+#page-container {
+	border-top-right-radius: 10px;
+	bottom: 40px;
+	left: 15px;
+	min-height: 480px;
+	min-width: 360px;
+	position: relative;
+	top: 5px;
+	width: 96%;
+}
 
 .button {
 	cursor: pointer;
  	position: relative;
 }
-.button:not(.ui-state-disabled):hover { color: #ddd; }
+
+.button:not(.ui-state-disabled):hover {
+	color: map-get($colors, alto);
+}
 
 .population-container {
-	position: absolute;
-	top: 0;
-	right: 0;
+	background: rgba(0, 0, 0, .7);
+	color: map-get($colors, dusty-grey);
+	font-family: $font-family-sans-serif;
 	margin: 0;
-
-	z-index: 1;
-	background: rgba(0, 0, 0, 0.7);
 	padding: 2px 10px;
-	color: #999;
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1;
 }
 
 .silence-text {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-top: -50px;
-	margin-left: -100px;
 	display: none;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -50px;
+	position: absolute;
+	top: 50%;
 }
 
-.silence-text h1{
-	color: red;
+.silence-text h1 {
+	color: map-get($colors, 'red');
 }
 
-.population-container h2 {
-	border-bottom: 1px #999 solid;
-}
+.population-container {
+	h2 {
+		border-bottom: 1px map-get($colors, dusty-grey) solid;
+	}
 
-.population-container h4 {
-	float: left;
-	margin-left: 35px;
-}
+	h4 {
+		float: left;
+		margin-left: 35px;
+	}
 
-.population-container .male {
-	color: #539DC2;
-}
+	.male {
+		color: map-get($colors, fountain);
+	}
 
-.population-container .female {
-	color: #CD6090;
-}
-
-.ui-state-disabled {
-	cursor: default;
+	.female {
+		color: map-get($colors, hopbush);
+	}
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
-
 	background: rgba(0, 0, 0, 0.7);
-	font-family: verdana, arial, tahoma;
+	color: map-get($colors, dusty-grey);
+	font-family: $font-family-sans-serif;
 	font-size: 12px;
-	text-shadow: 1px 1px 0 #333;
-	color: #999;
 	height: 40px;
-	width: 96%;
 	margin-left: 15px;
-
+	position: relative;
 	text-align: center;
-}
+	text-shadow: 1px 1px 0 map-get($colors, mine-shaft);
+	width: calc(100% - 25px);
 
-footer p { padding-top: 15px; }
-footer em { color: #0DB0BE; }
-footer span { color: #89BE0D; }
+	a:hover {
+		color: map-get($colors, flamingo);
+		text-decoration: none;
+		transition: 1s linear;
+	}
 
-footer a:link,
-footer a:visited,
-footer a:active {
-	color: #F6B149;
-	text-decoration: none;
-}
+	a:link,
+	a:visited,
+	a:active {
+		color: map-get($colors, casablanca);
+		text-decoration: none;
+	}
 
-footer a:hover {
-	color: #F8572D;
-	text-decoration: none;
-	-webkit-transition: 1s linear;
-	-moz-transition: 1s linear;
-	-o-transition: 1s linear;
-	-ms-transition: 1s linear;
-	transition: 1s linear;
-}
-
-/*-----------------
-  ADD PERSON FORM
- -----------------*/
-.modal-dialog, .modal-content { background: rgba(0, 0, 0, 0.7); }
-.add-person-title {
-	border-radius: 0;
-	color: #ccc;
-}
-.modal-content {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	border: none;
-	color: #fff;
-}
-
-.modal-content .form-control {
-	background-color: rgba(0,0,0,.5);
-	border-color: #333;
-	color: #fff;
-}
-
-.modal-content .input-group {
-	margin-top: 10px;
-}
-
-.left-column {
-	float: left;
-	margin: 10px 15px 0 0;
-}
-.right-column {
-	float: right;
-}
-.select-gender { margin: 0 auto; }
-
-.modal-footer {
-	background: none;
-	margin: 0 auto;
-	float: none;
-    text-align: center;
+	p {
+		padding-top: 15px;
+	}
 }

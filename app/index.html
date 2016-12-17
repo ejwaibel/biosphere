@@ -11,7 +11,7 @@
 
 	<!-- build:css styles/vendor.css -->
 	<!-- bower:css -->
-	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-hive/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-hive/jquery-ui.css" />
 	<!-- endbower -->
 	<!-- endbuild -->
 
@@ -20,24 +20,32 @@
 	<!-- endbuild -->
   </head>
   <body>
-	<div id="container">
+	<div id="page-container">
 
-		<div id="sidebar">
+		<section id="sidebar" class="btn-group-vertical" role="group">
 			<!-- Add New Person -->
-			<i id="add-new" data-toggle="modal" data-target="#add-person-dialog" class="button glyphicon glyphicon-plus" title="Add Person"></i>
+			<button data-toggle="modal" data-target="#add-person-dialog" class="btn btn-add-new" aria-disabled="false" title="Add Person">
+				<i class="icon glyphicon glyphicon-plus"></i>
+			</button>
 
-			<i id="terminate-all" class="button glyphicon glyphicon-warning-sign" title="Start Apocolypse"></i>
+			<!-- Destroy all humans -->
+			<button class="btn btn-terminate-all ui-state-disabled" aria-disabled="true" title="Terminate All">
+				<i class="icon glyphicon glyphicon-warning-sign"></i>
+			</button>
 
 			<!-- Silence Population -->
-			<i id="silence-all" class="button glyphicon glyphicon-volume-off" title="Silence Population"></i>
+			<button class="btn btn-silence-all ui-state-disabled" aria-disabled="true" title="Toggle Speech">
+				<i class="icon glyphicon glyphicon-volume-off"></i>
+			</button>
 
 			<!-- Cemetery -->
-			<i id="cemetery-view" class="button glyphicon glyphicon-random" title="Visit Cemetery"></i>
-		</div>
+			<button class="btn btn-cemetery-view" aria-disabled="false" title="Visit Cemetery">
+				<i class="icon glyphicon glyphicon-fire"></i>
+			</button>
+		</section>
 
 		<!-- Container for all Persons -->
-		<div id="biosphere" class="living">
-
+		<section id="biosphere" class="living">
 			<!-- Person Stats -->
 			<div id="stats">
 				<h4 class="name"></h4>
@@ -75,7 +83,7 @@
 			</div>
 
 			<div class="apocolypse"></div>
-			<img class="background" src="images/biosphere1.png">
+			<div class="background summer"></div>
 
 			<!-- Quick Actions Bar -->
 			<div id="quick-actions">
@@ -92,14 +100,14 @@
 			</div>
 
 			 <!-- Cycle Backgrounds -->
-			<div class="cycle-background forward" title="Cycle Backgrounds">
-				<i id="next-background" class="button glyphicon glyphicon-forward" title="Next"></i>
-			</div>
-			<div class="cycle-background backward" title="Cycle Backgrounds">
-				<i id="prev-background" class="button glyphicon glyphicon-backward" title="Previous"></i>
-			</div>
+			<a href="#" id="next-background" class="cycle-background forward" title="Next Background">
+				<i class="button glyphicon glyphicon-forward"></i>
+			</a>
+			<a href="#" id="prev-background" class="cycle-background backward" title="Previous Background">
+				<i class="button glyphicon glyphicon-backward"></i>
+			</a>
 
-		</div>
+		</section>
 	</div>
 
 	<!-- Silence All Text -->
@@ -118,7 +126,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="input-group">
-					  <input type="text" class="form-control" placeholder="Name" name="pname">
+					  <input type="text" class="form-control" required="true" placeholder="Name" name="pname">
 					</div>
 
 					<div class="select-gender input-group">
@@ -138,7 +146,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="btn-ok" type="button" class="btn btn-primary">ok</button>
+					<button type="button" class="button btn-primary btn-submit">ok</button>
 				</div>
 			</div>
 		</div>
@@ -150,6 +158,7 @@
 	<!-- build:js scripts/vendor.js -->
 	<!-- bower:js -->
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
 	<script src="../bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->

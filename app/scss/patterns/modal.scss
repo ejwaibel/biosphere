@@ -1,0 +1,39 @@
+/*-----------------
+  ADD PERSON FORM
+ -----------------*/
+.modal-dialog, .modal-content { background: rgba(0, 0, 0, 0.7); }
+.add-person-title {
+	border-radius: 0;
+	color: #ccc;
+}
+.modal-content {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border: none;
+	color: #fff;
+}
+
+.modal-content .form-control {
+	background-color: rgba(0,0,0,.5);
+	border-color: #333;
+	color: #fff;
+}
+
+.modal-content .input-group {
+	margin-top: 10px;
+}
+
+.left-column {
+	float: left;
+	margin: 10px 15px 0 0;
+}
+.right-column {
+	float: right;
+}
+.select-gender { margin: 0 auto; }
+
+.modal-footer {
+	background: none;
+	margin: 0 auto;
+	float: none;
+    text-align: center;
+}
