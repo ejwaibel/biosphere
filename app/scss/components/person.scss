@@ -2,8 +2,8 @@
  * Person styles
  */
  .person {
-	position: absolute;
 	height: 160px;
+	position: absolute;
 	width: 60px;
 	z-index: 100;
 
@@ -98,19 +98,19 @@
 	}
 
 	.death-age {
+		color: #8AF81A;
 		display: none;
 		position: absolute;
-		top: 125px;
 		right: 25px;
-		color: #8AF81A;
 		text-shadow: #000 2px -1px 2px;
+		top: 125px;
 	}
 
 	.heart {
-		color: red;
-		position: relative;
+		color: map-get($colors, 'red');
 		font-size: 13px;
 		left: 5px;
+		position: relative;
 	}
 
 	.speech-bubble {

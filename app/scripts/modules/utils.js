@@ -1,3 +1,6 @@
+export function getRandomNumber(n) {
+	return Math.round(Math.random() * n);
+}
 
 /**
  * Generates a GUID string.

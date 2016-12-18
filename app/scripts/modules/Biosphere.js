@@ -1,3 +1,5 @@
+import * as util from './utils.js';
+
 export default class Biosphere {
 	/**
 	 * The constructor function for Biosphere class
@@ -26,7 +28,7 @@ export default class Biosphere {
 	}
 
 	getRandomPerson() {
-		return this.persons[Math.ceil(Math.random() * (this.personMap.length - 1))];
+		return this.persons[util.getRandomNumber(this.persons.length - 1)];
 	}
 
 	/**

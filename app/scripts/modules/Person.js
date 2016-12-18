@@ -1,8 +1,13 @@
 import { tpl } from '../templates/tpl.js';
-import { getUuid } from './utils.js';
+import * as util from './utils.js';
 
+const _age = Symbol('person.age');
 const _alive = Symbol('person.alive');
+const _clothing = Symbol('person.clothing');
+const _dirtFactor = Symbol('person.dirtFactor');
 const _maxAge = Symbol('person.maxAge');
+const _sleepFactor = Symbol('person.sleepFactor');
+const _weight = Symbol('person.weight');
 const _uuid = Symbol('person.uuid');
 
 export default class Person {
@@ -12,23 +17,23 @@ export default class Person {
 	 * @param  {[type]} gender [description]
 	 */
 	constructor(name, gender) {
-		this[_alive] = true;
-		this[_maxAge] = 70 + Math.round(Math.random() * 15) + Math.round(Math.random() * 15);
+		this[_alive] 	= true;
+		this[_age]		= 0;
+		this[_maxAge] 	= 70 + util.getRandomNumber(15) + util.getRandomNumber(15);
 
 		// Set properties based on arguments to constructor
-		this.gender = gender;
-		this.name = name || (this.gender === 'male' ? 'John Doe' : 'Jane Doe');
-
-		this.thoughts = this.constructor.thoughts[this.gender];
+		this.gender 	= gender;
+		this.name 		= name || (this.gender === 'male' ? 'John Doe' : 'Jane Doe');
 
 		// Set default values for instance of Person
-		this.age = 1;
-		this.clothing	= 'nothing/naked';
-		this.dirtFactor = 0;
-		this.mute = Math.ceil(Math.random() * 2) < 2 ? false : true;
-		this.sleepFactor = 10;
-		this.weight = Math.round(Math.random() * this.constructor.maxWeight);
-		this[_uuid] = getUuid();
+		this.age 			= 1;
+		this.clothing		= 'nothing/naked';
+		this.dirtFactor 	= 0;
+		this.mute 			= util.getRandomNumber(2) < 2 ? false : true;
+		this.sleepFactor 	= 10;
+		this.thoughts 		= this.constructor.thoughts[this.gender];
+		this.weight 		= util.getRandomNumber(this.constructor.maxWeight);
+		this.id 			= util.getUuid();
 
 		this.$el = $(tpl.person(this));
 	}
@@ -38,44 +43,20 @@ export default class Person {
 
 		this.change({ type: 'age', data: this.age });
 
-		if (!this.isAlive()) {
-			this.age = this[_maxAge];
-
-			// updatePopulation(-1);
-
-			this.hesDeadJim();
-		}
-
 		return this[_alive];
-	}
-
-	addDirt(n) {
-		if (n > 0 && this._makeOlder()) {
-			this.dirtFactor += n;
-		}
-	}
-
-	changeClothes(c) {
-		this.clothing = c;
 	}
 
 	eat() {
 		if (this._makeOlder()) {
 			this.dirtFactor++;
 			this.weight += parseInt(this.age * 0.7, 10);
-			this.change({ type: 'weight', data: weight });
-
-			return this.weight;
 		}
 	}
 
 	exercise() {
 		if (this._makeOlder()) {
-			this.dirtFactor++;
-			this.weight -= parseInt(this.weight / 5, 10);
-			this.change({ type: 'weight', data: this.weight });
-
-			return this.weight;
+			this.dirtFactor += 5;
+			this.weight -= Math.round(this.weight / 5);
 		}
 	}
 
@@ -84,9 +65,7 @@ export default class Person {
 	}
 
 	kill() {
-		// this._makeOlder(this[_maxAge]);
-		this[_alive] = false;
-		this.hesDeadJim();
+		this.age = this[_maxAge];
 	}
 
 	muchTimePasses(n) {
@@ -108,6 +87,7 @@ export default class Person {
 
 	sleep(n) {
 		if (n > 0 && this._makeOlder()) {
+			this.dirtFactor += Math.round(n / 2);
 			this.sleepFactor -= n;
 
 			if (this.sleepFactor < 0) {
@@ -118,25 +98,43 @@ export default class Person {
 
 	work(hours) {
 		if (hours > 0 && this._makeOlder()) {
-			this.dirtFactor++;
-			this.sleepFactor = parseInt(hours * 1.5, 10);
-
-			this.weight += parseInt(hours * 1.75, 10);
-
-			this.change({ type: 'weight', data: this.weight });
+			this.dirtFactor += Math.round(hours / 3);
+			this.sleepFactor = Math.round(hours * 1.5);
+			this.weight += Math.round(hours * 1.75);
 		}
 	}
 
 	/********
 	 * GETTERS / SETTERS
 	 ********/
+	get age() {
+		return this[_age];
+	}
+
+	set age(val) {
+		this[_age] += val;
+
+		if (!this.isAlive()) {
+			this.hesDeadJim();
+		}
+	}
+
 	get clothing() {
-		return this._clothing;
+		return this[_clothing];
 	}
 
 	set clothing(val) {
-		this._clothing = val;
+		this[_clothing] = val;
 		this.change({ type: 'clothing', data: val });
+	}
+
+	get dirtFactor() {
+		return this[_dirtFactor];
+	}
+
+	set dirtFactor(val) {
+		this[_dirtFactor] = val;
+		this.change({ type: 'dirtFactor', data: val });
 	}
 
 	get id() {
@@ -145,6 +143,24 @@ export default class Person {
 
 	set id(val) {
 		this[_uuid] = val;
+	}
+
+	get sleepFactor() {
+		return this[_sleepFactor];
+	}
+
+	set sleepFactor(val) {
+		this[_sleepFactor]= val;
+		this.change({ type: 'sleepFactor', data: val });
+	}
+
+	get weight() {
+		return this[_weight];
+	}
+
+	set weight(val) {
+		this[_weight] = val;
+		this.change({ type: 'weight', data: val });
 	}
 }
 
@@ -162,6 +178,8 @@ Person.prototype.change = function() {
 // ************************************************************************
 // STATIC PROPERTIES -- ANYONE MAY READ/WRITE
 // ************************************************************************
+Person.maxDirt = 100;
+Person.maxSleep = 100;
 Person.maxWeight = 500;
 
 Person.thoughts = {

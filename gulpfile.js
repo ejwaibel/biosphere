@@ -1,5 +1,3 @@
-/*global -$ */
-'use strict';
 // generated on 2016-12-04 using generator-es6-webapp 0.1.0
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
@@ -35,16 +33,16 @@ gulp.task('eslint', function() {
 		.pipe($.eslint())
 		.pipe(reload({stream: true, once: true}))
 		/* Outputs hinting to console */
-		.pipe($.eslint.format())
+		.pipe($.eslint.format());
 				//.pipe($.if(!browserSync.active, $.eslint.failOnError()))
 });
 
 gulp.task('sass-lint', function() {
-	return gulp.src('app/scss/*.scss')
+	return gulp.src('app/scss/**/*.scss')
 		.pipe($.plumber())
 		.pipe(sasslint(options.sasslint))
 		.pipe(sasslint.format())
-		.pipe(sasslint.failOnError())
+		.pipe(sasslint.failOnError());
 });
 
 gulp.task('scss', ['sass-lint'], function() {

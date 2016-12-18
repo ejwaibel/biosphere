@@ -1,5 +1,6 @@
 import Biosphere from './modules/Biosphere.js';
 import Person from './modules/Person.js';
+import * as util from './modules/utils.js';
 
 $(() => {
 	let bio = new Biosphere(),
@@ -68,16 +69,16 @@ $(() => {
 		toggleQuickActions('hide');
 	});
 
-	/*************************************
-	 * Setup events on the dialog
-	 *************************************/
-
-
 	// Initialize progress bars in stats box
 	$stats
-		.find('.progress .progress-bar').progressbar()
+		.find('.progress .progress-bar')
+			.progressbar()
 		.end()
-		.find('.progress.weight .progress-bar').progressbar('option', 'max', Person.maxWeight);
+		.find('.progress.weight .progress-bar')
+			.progressbar('option', 'max', Person.maxWeight)
+		.end()
+		.find('.progress.dirtFactor .progress-bar')
+			.progressbar('option', 'max', Person.maxDirt);
 
 	// Setup tooltips on each button
 	$sidebar.find('.button').tooltip({ placement: 'right' });
@@ -193,13 +194,10 @@ $(() => {
 				$silentText.fadeOut();
 			}
 		})
-		.on('click', '.btn-cemetery-view', function() {
+		// SWITCH BETWEEN CEMETARY AND LIVING PEOPLE
+		.on('click', '.btn-cemetery-view:not(.ui-state-disabled)', function() {
 			var $this = $(this),
 				$icon = $this.find('.icon');
-
-			// if ($this.hasClass('ui-state-disabled')) {
-			// 	return false;
-			// }
 
 			$container.toggleClass('cemetery');
 			$btnAddNew.toggleClass('ui-state-disabled');
@@ -255,13 +253,79 @@ $(() => {
 		// Show the Person's speech bubble
 		let $sb = p.$el
 			.find('.speech-bubble')
-				.html(p.thoughts[Math.ceil(Math.random() * p.thoughts.length - 1)])
+				.html(p.thoughts[util.getRandomNumber(p.thoughts.length - 1)])
 				.show();
 
-		setTimeout(() => $sb.fadeOut(), 16 * (Math.random() * 5000));
+		setTimeout(() => $sb.fadeOut(), util.getRandomNumber(5000));
 	};
-	let sbTimer = setInterval(showSpeechBubble, 16 * (Math.random() * 6000 + 1000));
+	let sbTimer = setInterval(showSpeechBubble, 16 * (util.getRandomNumber(6000) + 1000));
 	let hbTimer = setInterval(heartbeat, 480);
+
+	$quickActions
+		.on('click', '.action:not(.ui-state-disabled)', function(event) {
+			var $this = $(this),
+				uuid = $('.person.selected').data('uuid'),
+				action = $this.data('action'),
+				person = bio.getPersonById(uuid),
+				pr = null;
+
+			// Stop the event from 'bubbling' down to the body.
+			event.stopPropagation();
+
+			switch (action) {
+				case 'age':
+					pr = Number(prompt('How much time? (years)'));
+
+					while (isNaN(pr) || pr < 0) {
+						pr = Number(prompt('Invalid! Enter amount of time passes'));
+					}
+
+					person.muchTimePasses(pr);
+
+					break;
+
+				case 'change':
+					pr = prompt('What clothes?');
+
+					if (pr !== null) {
+						person.clothing = pr;
+					}
+
+					break;
+
+				case 'kill':
+					person.kill();
+
+					break;
+
+				case 'sleep':
+					pr = Number(prompt('Sleep for how long? (hours)'));
+
+					while (isNaN(pr) || pr < 0) {
+						pr = Number(prompt('Invalid! Enter hours of sleep'));
+					}
+
+					person.sleep(pr);
+
+					break;
+
+				case 'work':
+					pr = Number(prompt('Work for how long? (hours)'));
+
+					while (isNaN(pr) || pr < 0) {
+						pr = Number(prompt('Invalid! Enter number of work hours'));
+					}
+
+					person.work(pr);
+
+					break;
+
+				default:
+					if (person.hasOwnProperty(action) && typeof person[action] === 'function') {
+						person[action]();
+					}
+			}
+		});
 
 	/******************************************
 	 * Person prototype properties/methods
@@ -271,6 +335,8 @@ $(() => {
 	Person.prototype.hesDeadJim = function() {
 		toggleQuickActions('hide');
 		toggleStats('hide');
+
+		bio.updatePopulation(this);
 
 		// Check population
 		if (bio.totalPopulation === 0) {
@@ -289,7 +355,6 @@ $(() => {
 			}, 500, () =>
 				this.$el
 					.removeClass(this.gender).addClass('tombstone')
-					.hide()
 					.css({ opacity: 1 })
 					.off()
 			);
@@ -302,7 +367,6 @@ $(() => {
 	 */
 	Person.prototype.change = function(obj) {
 		var $progressbar = $('#stats .progress.' + obj.type + ' .progress-bar'),
-			maximum = $progressbar.progressbar('option', 'max'),
 			width;
 
 		if (obj.type === 'clothing') {
