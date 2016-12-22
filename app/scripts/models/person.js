@@ -1,11 +1,12 @@
-import { tpl } from '../templates/tpl.js';
-import * as util from './utils.js';
+import personTpl from '../templates/personTpl.js';
+import * as util from '../modules/utils.js';
 
 const _age = Symbol('person.age');
 const _alive = Symbol('person.alive');
 const _clothing = Symbol('person.clothing');
 const _dirtFactor = Symbol('person.dirtFactor');
 const _maxAge = Symbol('person.maxAge');
+const _mute = Symbol('person.mute');
 const _sleepFactor = Symbol('person.sleepFactor');
 const _weight = Symbol('person.weight');
 const _uuid = Symbol('person.uuid');
@@ -35,7 +36,7 @@ export default class Person {
 		this.weight 		= util.getRandomNumber(this.constructor.maxWeight);
 		this.id 			= util.getUuid();
 
-		this.$el = $(tpl.person(this));
+		this.$el = $(personTpl(this));
 	}
 
 	_makeOlder(n) {
@@ -143,6 +144,15 @@ export default class Person {
 
 	set id(val) {
 		this[_uuid] = val;
+	}
+
+	get mute() {
+		return this[_mute];
+	}
+
+	set mute(val) {
+		this[_mute] = val;
+		this.change({ type: 'mute', data: val });
 	}
 
 	get sleepFactor() {

@@ -2,24 +2,30 @@
  * Quick Actions styles
  */
 #quick-actions {
-	display: none;
-
-	position: absolute;
-	left: 25%;
-	bottom: 0;
-
 	background: rgba(0, 0, 0, 0.9);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-
-	color: #999;
+	bottom: 0;
+	color: map-get($colors, dusty-grey);
  	cursor: default;
+	display: none;
+	left: 25%;
+	position: absolute;
  	text-align: center;
-
- 	width: 525px;
-
  	/* Disable user selection */
  	user-select: none;
-
+ 	width: 525px;
  	z-index: 20;
+
+ 	.action:not(.ui-state-disabled) {
+ 		cursor: pointer;
+ 	}
+
+ 	.icon {
+ 		padding: 10px;
+
+ 		&:hover {
+ 			opacity: .35;
+ 		}
+ 	}
 }

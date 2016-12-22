@@ -1,6 +1,6 @@
-import * as util from './utils.js';
+import * as util from '../modules/utils.js';
 
-export default class Biosphere {
+export default class BiosphereStore {
 	/**
 	 * The constructor function for Biosphere class
 	 * @return {[type]} [description]

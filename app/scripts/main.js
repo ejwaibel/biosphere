@@ -1,11 +1,12 @@
-import Biosphere from './modules/Biosphere.js';
-import Person from './modules/Person.js';
+import Biosphere from './stores/biosphereStore.js';
+import Person from './models/person.js';
 import * as util from './modules/utils.js';
 
 $(() => {
 	let bio = new Biosphere(),
 		$apocolypse = $('.apocolypse'),
-		$quickActions = $('#quick-actions'),
+		$quickActionsBar = $('#quick-actions'),
+		$btnActions = {},
 		$dialogTemplate = $('#add-person-dialog'),
 		$container = $('#biosphere'),
 		$btnAddNew = $('.btn-add-new'),
@@ -48,8 +49,12 @@ $(() => {
 				p.mute = true;
 			}
 		},
-		toggleQuickActions = function(display) {
-			$quickActions[display]('slide', { direction: 'down' }, 500);
+		toggleQuickActions = function(display, person) {
+			$quickActionsBar[display]('slide', { direction: 'down' }, 500);
+
+			if (person) {
+
+			}
 		},
 		toggleStats = function(display, p) {
 			$stats[display]('slide', { direction: 'left' }, 500, function() {
@@ -129,7 +134,7 @@ $(() => {
 			if (p.isAlive() && !isSelected) {
 				toggleStats('show', p);
 				$this.addClass('selected');
-				toggleQuickActions('show');
+				toggleQuickActions('show', p);
 			}
 		});
 
@@ -261,7 +266,7 @@ $(() => {
 	let sbTimer = setInterval(showSpeechBubble, 16 * (util.getRandomNumber(6000) + 1000));
 	let hbTimer = setInterval(heartbeat, 480);
 
-	$quickActions
+	$quickActionsBar
 		.on('click', '.action:not(.ui-state-disabled)', function(event) {
 			var $this = $(this),
 				uuid = $('.person.selected').data('uuid'),
@@ -306,6 +311,12 @@ $(() => {
 					}
 
 					person.sleep(pr);
+
+					break;
+
+				case 'silence':
+					$this.addClass('ui-state-disabled');
+					person.mute = true;
 
 					break;
 
@@ -373,6 +384,8 @@ $(() => {
 			$stats.find('.clothing p').text(obj.data);
 
 			return;
+		} else if (obj.type === 'mute' && this.$el) {
+			this.$el.addClass('mute');
 		}
 
 		width = obj.data;

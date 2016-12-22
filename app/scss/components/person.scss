@@ -49,7 +49,8 @@
 			display: block;
 		}
 
-		.heart {
+		.heart,
+		.silence {
 			display: none;
 		}
 	}
@@ -64,6 +65,10 @@
 		.heart {
 			top: 70px;
 		}
+
+		.silence {
+			top: 2.65em;
+		}
 	}
 
 	&.female {
@@ -76,11 +81,19 @@
 		.heart {
 			top: 40px;
 		}
+
+		.silence {
+			top: .75em;
+		}
 	}
 
 	&.selected {
 		background-color: #b20326;
 		border-radius: 30px;
+	 }
+
+	 .icon {
+	 	position: absolute;
 	 }
 
 	.person-name {
@@ -111,6 +124,18 @@
 		font-size: 13px;
 		left: 5px;
 		position: relative;
+	}
+
+	.silence {
+		display: none;
+		font-size: 1em;
+		left: calc(50% - .5em);
+	}
+
+	&.mute {
+		.silence {
+			display: inline-block;
+		}
 	}
 
 	.speech-bubble {
