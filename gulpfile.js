@@ -31,7 +31,6 @@ var options = {
 gulp.task('eslint', function() {
 	return gulp.src('app/scripts/**/*.js')
 		.pipe($.eslint())
-		.pipe(reload({stream: true, once: true}))
 		/* Outputs hinting to console */
 		.pipe($.eslint.format());
 				//.pipe($.if(!browserSync.active, $.eslint.failOnError()))
@@ -53,7 +52,7 @@ gulp.task('scss', ['sass-lint'], function() {
 		.pipe($.autoprefixer(options.autoprefixer))
 		.pipe($.sourcemaps.write())
 		.pipe(gulp.dest('.tmp/styles'))
-		.pipe(reload({stream: true}));
+		.pipe(reload({ stream: true }));
 });
 
 gulp.task('es6', ['eslint'], function() {
@@ -65,11 +64,11 @@ gulp.task('es6', ['eslint'], function() {
 	})
 	.transform(babelify, {
 	    // Use all of the ES2015 spec
-	    presets: ["es2015"]
+	    presets: ['es2015']
 	})
 	.bundle()
 	.pipe(source('app.js'))
-	.pipe(gulp.dest('./.tmp'));
+	.pipe(gulp.dest('./.tmp'))
 });
 
 gulp.task('html', ['es6', 'scss'], function () {
@@ -154,12 +153,13 @@ gulp.task('serve', ['produce'], function () {
   gulp.watch([
 	'app/*.html',
 	'app/images/**/*',
+	'.tmp/app.js'
   ]).on('change', reload);
 
-  gulp.watch('app/scss/**/*.scss', ['scss'], reload);
+  gulp.watch('app/scss/**/*.scss', ['scss']);
   gulp.watch('app/fonts/**/*', ['fonts'], reload);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
-  gulp.watch('app/scripts/**/*.js', ['es6'], reload);
+  gulp.watch('app/scripts/**/*.js', ['es6']);
 });
 
 gulp.task('serve:dist', ['package'], function () {
