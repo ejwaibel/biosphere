@@ -24,7 +24,7 @@
 
 		<section id="sidebar" class="btn-group-vertical" role="group">
 			<!-- Add New Person -->
-			<button data-toggle="modal" data-target="#add-person-dialog" class="btn btn-add-new" aria-disabled="false" title="Add Person">
+			<button data-toggle="modal" data-target="#add-person-modal" class="btn btn-add-new" aria-disabled="false" title="Add Person">
 				<i class="icon glyphicon glyphicon-plus"></i>
 			</button>
 
@@ -46,63 +46,22 @@
 
 		<!-- Container for all Persons -->
 		<section id="biosphere" class="living">
-			<!-- Person Stats -->
-			<div id="stats">
-				<h4 class="name"></h4>
-				<label>Age:</label>
-				<div class="progress age">
-					<span class="value"></span>
-					<span class="progress-bar"></span>
-				</div>
-				<label>Dirt Factor:</label>
-				<div class="progress dirtFactor">
-					<span class="value"></span>
-					<span class="progress-bar"></span>
-				</div>
-				<label>Sleep Factor:</label>
-				<div class="progress sleepFactor">
-					<span class="value"></span>
-					<span class="progress-bar"></span>
-				</div>
-				<label>Weight:</label>
-				<div class="progress weight">
-					<span class="value"></span>
-					<span class="progress-bar"></span>
-				</div>
-				<label>Clothing:</label>
-				<div class="clothing">
-					<p></p>
-				</div>
-			</div>
-
 			<!-- Population Header -->
-			<div id="population-header" class="population-container">
-					<h2>Total Population:&nbsp; <span id="population-total">0</span></h2>
-					<h4 class="male">Male: &nbsp; <span id="population-male">0</span></h4>
-					<h4 class="female">Female: &nbsp; <span id="population-female">0</span></h4>
-			</div>
+			<div id="population-header" class="population-count"></div>
+
+			<div id="stats"></div>
 
 			<div class="apocolypse"></div>
 			<div class="background summer"></div>
 
-			<!-- Quick Actions Bar -->
-			<div id="quick-actions">
-				<i class="action icon glyphicon glyphicon-cutlery" data-action="eat" title="Eat"></i>
-				<i class="action icon glyphicon glyphicon-road" data-action="exercise" title="Exercise"></i>
-				<i class="action icon glyphicon glyphicon-fast-forward" data-action="age" title="Increase Age"></i>
-				<i class="action icon glyphicon glyphicon-tint" data-action="shower" title="Shower"></i>
-				<i class="action icon glyphicon glyphicon-user" data-action="change" title="Change Clothes"></i>
-				<i class="action icon glyphicon glyphicon-eye-close" data-action="sleep" title="Sleep"></i>
-				<i class="action icon glyphicon glyphicon-usd" data-action="work" title="Work"></i>
-				<i class="action icon glyphicon glyphicon-volume-off" data-action="silence" title="Silence"></i>
-				<i class="action icon glyphicon glyphicon-remove" data-action="kill" title="Kill"></i>
-			</div>
+			<!-- Actions Bar -->
+			<div id="actions-bar"></div>
 
 			 <!-- Cycle Backgrounds -->
-			<a href="#" id="next-background" class="btn cycle-background forward" title="Next Background">
+			<a href="#" class="btn next-background cycle-background forward" title="Next Background">
 				<i class="glyphicon glyphicon-forward"></i>
 			</a>
-			<a href="#" id="prev-background" class="btn cycle-background backward" title="Previous Background">
+			<a href="#" class="btn prev-background cycle-background backward" title="Previous Background">
 				<i class="glyphicon glyphicon-backward"></i>
 			</a>
 
@@ -116,7 +75,7 @@
 	</div>
 
 	<!-- Add New Person Dialog Template -->
-	<div id="add-person-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-person-modal" aria-hidden="true">
+	<div id="add-person-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-person-modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

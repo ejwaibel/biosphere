@@ -15,3 +15,11 @@ export function getUuid() {
 		return v.toString(16);
 	});
 }
+
+export function isFunction(f) {
+	return f && typeof f === 'function';
+}
+
+export function prompt(str) {
+	return window.prompt(str);
+}

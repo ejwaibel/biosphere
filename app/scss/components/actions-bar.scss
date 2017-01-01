@@ -1,7 +1,7 @@
 /**
  * Quick Actions styles
  */
-#quick-actions {
+#actions-bar {
 	background: rgba(0, 0, 0, 0.9);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -10,22 +10,25 @@
  	cursor: default;
 	display: none;
 	left: 25%;
+ 	max-width: 620px;
 	position: absolute;
  	text-align: center;
  	/* Disable user selection */
  	user-select: none;
- 	width: 525px;
  	z-index: 20;
 
- 	.action:not(.ui-state-disabled) {
- 		cursor: pointer;
- 	}
+ 	.action {
+ 		color: inherit;
+ 		display: inline-block;
+ 		padding: 1em;
 
- 	.icon {
- 		padding: 10px;
+ 		&:not(.ui-state-disabled) {
+	 		cursor: pointer;
+	 	}
 
  		&:hover {
- 			opacity: .35;
- 		}
+	 		color: inherit;
+			opacity: .35;
+		}
  	}
 }

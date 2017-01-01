@@ -5,34 +5,45 @@
 	background: rgba(0, 0, 0, 0.7);
 	border-bottom-right-radius: 10px;
 	color: map-get($colors, 'palma');
-	font: 14px bold 'Open Sans Condensed', 'sans-serif';
 	display: none;
-	position: relative;
-
-	width: 355px;
+	font: 14px bold 'Open Sans Condensed', 'sans-serif';
 	height: 240px;
-
 	padding: 5px;
+	position: relative;
+	width: 355px;
 	z-index: 20;
 
-}
-#stats .name {
-	color: map-get($colors, 'yellow');
-}
-#stats .ui-progressbar .ui-progressbar-value { margin: 0; }
-#stats .ui-widget-content.progress-bar { border: none; }
-#stats .progress .value { position: absolute; }
-#stats .progress-bar,
-#stats .ui-progressbar .ui-progressbar-value {
-	border-radius: 0;
-}
-#stats .clothing {	text-transform: uppercase; }
-#stats label {
-	clear: left;
-	float: left;
+	label {
+		clear: left;
+		color: map-get($colors, 'white');
+		float: left;
+		text-align: left;
+		width: 85px;
+	}
 
-	width: 85px;
+	.name {
+		color: map-get($colors, 'yellow');
+	}
 
-	color: #fff;
-	text-align: left;
+	.progress {
+		.value {
+			position: absolute;
+		}
+
+		// .ui-progressbar .ui-progressbar-value { margin: 0; }
+		// .ui-widget-content.progress-bar { border: 0; }
+
+		.progress-bar,
+		.ui-progressbar .ui-progressbar-value {
+			border-radius: 0;
+		}
+
+		.progress-bar {
+			width: 100%;
+		}
+	}
+
+	.clothing {
+		text-transform: uppercase;
+	}
 }
